@@ -1,26 +1,62 @@
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class a123 extends JPanel {
     private JTextField TextField;
-    private JButton button1;
-    private JTable table1;
-    private JList list1;
-    private JScrollBar scrollBar1;
-    private JScrollBar scrollBar2;
-    private JButton button2;
+    private JButton AddButton;
+    private JList CurrentTasksJList;
+    private JButton MarkAsCompletedJButton;
     private JButton button3;
-    private JButton button5;
-    private JButton button4;
+    private JButton DeleteJButton;
+    private JButton MarkAsCurrentJButton;
     private JPanel rootPanel;
+    private JList CompletedTasksJList;
 
     public a123() {
-        TextField = new JTextField();
-        button1 = new JButton();
+        DefaultListModel CurrentTasks = new DefaultListModel();
+        DefaultListModel CompletedTasks = new DefaultListModel();
+        CurrentTasksJList.setModel(CurrentTasks);
+        CompletedTasksJList.setModel(CompletedTasks);
+        AddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CurrentTasks.addElement(TextField.getText());
+                CompletedTasks.addElement(TextField.getText());
+            }
+        });
+        CurrentTasksJList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                CompletedTasksJList.clearSelection();
+            }
+        });
+
+        CompletedTasksJList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                CurrentTasksJList.clearSelection();
+            }
+        });
+        DeleteJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[] indices=CurrentTasksJList.getSelectedIndices();
+                for(int i=indices.length-1;i>=0;i--){
+                    CurrentTasks.removeElementAt(indices[i]);
+                }
+                int[] indices2=CompletedTasksJList.getSelectedIndices();
+                for(int i=indices2.length-1;i>=0;i--){
+                    CompletedTasks.removeElementAt(indices2[i]);
+                }
+            }
+        });
     }
 
 
@@ -40,43 +76,43 @@ public class a123 extends JPanel {
      */
     private void $$$setupUI$$$() {
         rootPanel = new JPanel();
-        rootPanel.setLayout(new GridLayoutManager(7, 6, new Insets(0, 0, 0, 0), -1, -1));
-        final Spacer spacer1 = new Spacer();
-        rootPanel.add(spacer1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        rootPanel.setLayout(new GridLayoutManager(7, 7, new Insets(0, 0, 0, 0), -1, -1));
         final JLabel label1 = new JLabel();
         label1.setText("Создать задачу");
-        rootPanel.add(label1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(93, 16), null, 0, false));
+        rootPanel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(228, 16), null, 0, false));
         TextField = new JTextField();
-        rootPanel.add(TextField, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        button1 = new JButton();
-        button1.setText("+");
-        rootPanel.add(button1, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(63, 24), null, 0, false));
+        TextField.setText("");
+        rootPanel.add(TextField, new GridConstraints(1, 0, 1, 5, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(20, -1), null, 0, false));
+        AddButton = new JButton();
+        AddButton.setHideActionText(false);
+        AddButton.setText("+");
+        rootPanel.add(AddButton, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(24, 24), new Dimension(24, 24), 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Текущие задачи");
-        rootPanel.add(label2, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(93, 16), null, 0, false));
-        table1 = new JTable();
-        rootPanel.add(table1, new GridConstraints(3, 1, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        rootPanel.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(228, 16), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Завершенные задачи");
-        rootPanel.add(label3, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(93, 16), null, 0, false));
-        list1 = new JList();
-        rootPanel.add(list1, new GridConstraints(5, 1, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        scrollBar1 = new JScrollBar();
-        rootPanel.add(scrollBar1, new GridConstraints(3, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        scrollBar2 = new JScrollBar();
-        rootPanel.add(scrollBar2, new GridConstraints(5, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        button2 = new JButton();
-        button2.setText("Button");
-        rootPanel.add(button2, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(93, 24), null, 0, false));
+        rootPanel.add(label3, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(228, 16), null, 0, false));
+        MarkAsCompletedJButton = new JButton();
+        MarkAsCompletedJButton.setText("Button");
+        rootPanel.add(MarkAsCompletedJButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(228, 20), new Dimension(20, 20), 0, false));
         button3 = new JButton();
         button3.setText("Button");
-        rootPanel.add(button3, new GridConstraints(6, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(63, 24), null, 0, false));
-        button5 = new JButton();
-        button5.setText("Button");
-        rootPanel.add(button5, new GridConstraints(6, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(112, 24), null, 0, false));
-        button4 = new JButton();
-        button4.setText("Button");
-        rootPanel.add(button4, new GridConstraints(6, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rootPanel.add(button3, new GridConstraints(6, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(63, 24), null, 0, false));
+        DeleteJButton = new JButton();
+        DeleteJButton.setText("Button");
+        rootPanel.add(DeleteJButton, new GridConstraints(6, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(112, 24), null, 0, false));
+        MarkAsCurrentJButton = new JButton();
+        MarkAsCurrentJButton.setText("Button");
+        rootPanel.add(MarkAsCurrentJButton, new GridConstraints(6, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(20, 20), new Dimension(20, 20), 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        rootPanel.add(scrollPane1, new GridConstraints(5, 0, 1, 7, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        CompletedTasksJList = new JList();
+        scrollPane1.setViewportView(CompletedTasksJList);
+        final JScrollPane scrollPane2 = new JScrollPane();
+        rootPanel.add(scrollPane2, new GridConstraints(3, 0, 1, 7, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        CurrentTasksJList = new JList();
+        scrollPane2.setViewportView(CurrentTasksJList);
     }
 
     /**
@@ -86,4 +122,13 @@ public class a123 extends JPanel {
         return rootPanel;
     }
 
+    public void setData(CurrentTasks data) {
+    }
+
+    public void getData(CurrentTasks data) {
+    }
+
+    public boolean isModified(CurrentTasks data) {
+        return false;
+    }
 }
