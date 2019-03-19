@@ -13,10 +13,9 @@ public class MyToolWindow {
     private JPanel myToolWindowContent;
     private JButton showButton;
     public MyToolWindow(ToolWindow toolWindow, Project project) {
-        myToolWindowContent = new a123();
-        //myToolWindowContent.setLayout(new BorderLayout());
-        //showButton = new JButton("Show");
-        //myToolWindowContent.add(showButton, BorderLayout.SOUTH);
+        myToolWindowContent = new JPanel();
+        a123 a123=new a123();
+        myToolWindowContent.add(a123.$$$getRootComponent$$$());
     }
     public JPanel getContent() {
         return myToolWindowContent;
