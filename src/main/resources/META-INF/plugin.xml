@@ -15,7 +15,8 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <toolWindow id="Issue Tracker" secondary="true" anchor="left"
+                    factoryClass="MyToolWindowFactory"/>
     </extensions>
 
     <actions>
