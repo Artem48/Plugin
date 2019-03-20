@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MyForm">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="405" height="400"/>
+    </constraints>
+    <properties>
+      <minimumSize width="250" height="200"/>
+      <preferredSize width="250" height="400"/>
+    </properties>
+    <clientProperties>
+      <html.disable class="java.lang.Boolean" value="false"/>
+    </clientProperties>
+    <border type="none"/>
+    <children>
+      <component id="80a99" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="16"/>
+            <preferred-size width="100" height="16"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Создать задачу"/>
+        </properties>
+      </component>
+      <component id="6ccb0" class="javax.swing.JTextField" binding="TextField">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="20" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value=""/>
+          <toolTipText value="Имя задачи"/>
+        </properties>
+      </component>
+      <component id="e89ca" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="16"/>
+            <preferred-size width="100" height="16"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Текущие задачи"/>
+        </properties>
+      </component>
+      <component id="63802" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="16"/>
+            <preferred-size width="120" height="16"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Завершенные задачи"/>
+        </properties>
+      </component>
+      <scrollpane id="4577f">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="16db1" class="javax.swing.JList" binding="CompletedTasksJList">
+            <constraints/>
+            <properties>
+              <minimumSize width="100" height="50"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <scrollpane id="40b20">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="a0ca6" class="javax.swing.JList" binding="CurrentTasksJList">
+            <constraints/>
+            <properties>
+              <minimumSize width="100" height="50"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="bbdb6" class="javax.swing.JButton" binding="MarkAsCompletedJButton">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="24" height="24"/>
+            <preferred-size width="80" height="24"/>
+            <maximum-size width="80" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Завершить"/>
+          <toolTipText value="Переместить в завершенные"/>
+        </properties>
+      </component>
+      <component id="c8822" class="javax.swing.JButton" binding="MarkAsCurrentJButton">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="24" height="24"/>
+            <preferred-size width="80" height="24"/>
+            <maximum-size width="80" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Возобновить"/>
+          <toolTipText value="Переместить в текущие"/>
+        </properties>
+      </component>
+      <component id="f8040" class="javax.swing.JButton" binding="DeleteJButton">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="24" height="24"/>
+            <preferred-size width="80" height="24"/>
+            <maximum-size width="80" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Удалить"/>
+          <toolTipText value="Удалить задачу"/>
+        </properties>
+      </component>
+      <component id="10cdd" class="javax.swing.JButton" binding="EditJButton">
+        <constraints>
+          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="24" height="24"/>
+            <preferred-size width="80" height="24"/>
+            <maximum-size width="80" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Изменить"/>
+          <toolTipText value="Изменить задачу"/>
+        </properties>
+      </component>
+      <component id="4a77f" class="javax.swing.JButton" binding="AddButton">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="24" height="24"/>
+            <preferred-size width="24" height="24"/>
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <hideActionText value="false"/>
+          <text value="+"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
