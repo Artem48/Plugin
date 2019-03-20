@@ -8,7 +8,7 @@ public class MyToolWindow {
     private JButton showButton;
     public MyToolWindow(ToolWindow toolWindow, Project project) {
         myToolWindowContent = new JPanel();
-        MyForm MyForm =new MyForm();
+        MyForm MyForm =new MyForm(project);
         myToolWindowContent = MyForm.getRootComponent();
     }
     public JPanel getContent() {
