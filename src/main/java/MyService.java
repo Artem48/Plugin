@@ -1,7 +1,4 @@
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 
@@ -10,7 +7,7 @@ import javax.swing.*;
 @State(
         name="MyService.State",
         storages = {
-                @Storage("MyService.State.xml")}
+                @Storage("State.xml")}
 )
 class MyService implements PersistentStateComponent<MyService.State> {
 
@@ -26,11 +23,6 @@ class MyService implements PersistentStateComponent<MyService.State> {
         return myState;
     }
 
-//    public void loadState(State state) {
-//        myState = state;
-//        //MyForm.setCurrentTasks(myState.CurrentTasks);
-//        //MyForm.setCompletedTasks(myState.CompletedTasks);
-//    }
     @Override
     public void loadState(MyService.State singleFileExecutionConfig) {
         XmlSerializerUtil.copyBean(singleFileExecutionConfig, this);

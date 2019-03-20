@@ -2,7 +2,7 @@
     <id>plugin1</id>
     <name>Task Tracker</name>
     <vendor email="popov2202@gmail.com"> ">MyCompany</vendor>
-
+    <idea-version since-build="170"></idea-version>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Task Tracker" secondary="true" anchor="left"
