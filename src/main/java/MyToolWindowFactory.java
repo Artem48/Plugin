@@ -12,4 +12,6 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
     }
+    //public boolean shouldBeAvailable(@NotNull Project project) { return true;}
+    //public boolean isDoNotActivateOnStart() {return true;}
 }

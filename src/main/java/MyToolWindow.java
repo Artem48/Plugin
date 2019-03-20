@@ -9,7 +9,7 @@ public class MyToolWindow {
     public MyToolWindow(ToolWindow toolWindow, Project project) {
         myToolWindowContent = new JPanel();
         MyForm MyForm =new MyForm();
-        myToolWindowContent.add(MyForm.$$$getRootComponent$$$());
+        myToolWindowContent = MyForm.getRootComponent();
     }
     public JPanel getContent() {
         return myToolWindowContent;
