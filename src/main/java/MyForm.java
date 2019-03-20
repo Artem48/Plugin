@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class a123 extends JPanel {
+public class MyForm extends JPanel {
     private JTextField TextField;
     private JButton AddButton;
     private JList CurrentTasksJList;
@@ -19,7 +19,7 @@ public class a123 extends JPanel {
     private JPanel rootPanel;
     private JList CompletedTasksJList;
 
-    public a123() {
+    public MyForm() {
         DefaultListModel CurrentTasks = new DefaultListModel();
         DefaultListModel CompletedTasks = new DefaultListModel();
         CurrentTasksJList.setModel(CurrentTasks);
@@ -28,7 +28,7 @@ public class a123 extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CurrentTasks.addElement(TextField.getText());
-                CompletedTasks.addElement(TextField.getText());
+                TextField.setText("");
             }
         });
         CurrentTasksJList.addListSelectionListener(new ListSelectionListener() {
@@ -47,13 +47,37 @@ public class a123 extends JPanel {
         DeleteJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int[] indices=CurrentTasksJList.getSelectedIndices();
-                for(int i=indices.length-1;i>=0;i--){
+                int[] indices = CurrentTasksJList.getSelectedIndices();
+                for (int i = indices.length - 1; i >= 0; i--) {
                     CurrentTasks.removeElementAt(indices[i]);
                 }
-                int[] indices2=CompletedTasksJList.getSelectedIndices();
-                for(int i=indices2.length-1;i>=0;i--){
+                int[] indices2 = CompletedTasksJList.getSelectedIndices();
+                for (int i = indices2.length - 1; i >= 0; i--) {
                     CompletedTasks.removeElementAt(indices2[i]);
+                }
+            }
+        });
+        MarkAsCompletedJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[] indices = CurrentTasksJList.getSelectedIndices();
+                for (int i = 0; i < indices.length; i++) {
+                    CompletedTasks.addElement(CurrentTasks.getElementAt(indices[i]));
+                }
+                for (int i = indices.length - 1; i >= 0; i--) {
+                    CurrentTasks.removeElementAt(indices[i]);
+                }
+            }
+        });
+        MarkAsCurrentJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[] indices = CompletedTasksJList.getSelectedIndices();
+                for (int i = 0; i < indices.length; i++) {
+                    CurrentTasks.addElement(CompletedTasks.getElementAt(indices[i]));
+                }
+                for (int i = indices.length - 1; i >= 0; i--) {
+                    CompletedTasks.removeElementAt(indices[i]);
                 }
             }
         });
