@@ -3,48 +3,67 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 
 import javax.swing.*;
+import java.util.LinkedList;
+import java.util.List;
 
 @State(
-        name="MyService.State",
+        name="MyService",
         storages = {
                 @Storage("State.xml")}
 )
-class MyService implements PersistentStateComponent<MyService.State> {
+public class MyService implements PersistentStateComponent<MyService> {
 
-    static class State {
-        static DefaultListModel CurrentTasks=new DefaultListModel();
-        static DefaultListModel CompletedTasks=new DefaultListModel();
-        public String value;
-    }
+    private DefaultListModel CurrentTasks=new DefaultListModel();
+    private DefaultListModel CompletedTasks=new DefaultListModel();
+    public List<String> CurrentTasksList = new LinkedList<String>();
+    public List<String> CompletedTasksList = new LinkedList<String>();
 
-    State myState;
+    MyService() {}
 
-    public State getState() {
-        return myState;
+    @Override
+    public MyService getState() {
+        return this;
     }
 
     @Override
-    public void loadState(MyService.State singleFileExecutionConfig) {
+    public void loadState(MyService singleFileExecutionConfig) {
         XmlSerializerUtil.copyBean(singleFileExecutionConfig, this);
+        CurrentTasks.clear();
+        for (String s : CurrentTasksList) {
+            CurrentTasks.addElement(s);
+        }
+        CompletedTasks.clear();
+        for (String s : CompletedTasksList) {
+            CompletedTasks.addElement(s);
+        }
     }
 
-    public static MyService.State getInstance(Project project) {
-        return ServiceManager.getService(project, MyService.State.class);
+    public static MyService getInstance(Project project) {
+        return ServiceManager.getService(project, MyService.class);
     }
 
-    public static DefaultListModel GetCurrentTasks() {
-        return State.CurrentTasks;
+    public DefaultListModel CurrentTasks() { return CurrentTasks; }
+    public DefaultListModel CompletedTasks() { return CompletedTasks; }
+    public void addCurrentElement(String s) {
+        CurrentTasks.addElement(s);
+        CurrentTasksList.add(s);
     }
-    public static DefaultListModel GetCompletedTasks() {
-        return State.CompletedTasks;
+    public void addCompletedElement(String s) {
+        CompletedTasks.addElement(s);
+        CompletedTasksList.add(s);
     }
-
-    public static void SetCurrentTasks(DefaultListModel CurrentTasks) {
-        State.CurrentTasks=CurrentTasks;
+    public String getCurrentElement(int idx) {
+        return CurrentTasksList.get(idx);
     }
-
-    public static void SetCompletedTasks(DefaultListModel CompletedTasks) {
-        State.CompletedTasks=CompletedTasks;
+    public String getCompletedElement(int idx) {
+        return CompletedTasksList.get(idx);
     }
-
+    public void removeCurrentElement(int idx) {
+        CurrentTasks.removeElementAt(idx);
+        CurrentTasksList.remove(idx);
+    }
+    public void removeCompletedElement(int idx) {
+        CompletedTasks.removeElementAt(idx);
+        CompletedTasksList.remove(idx);
+    }
 }

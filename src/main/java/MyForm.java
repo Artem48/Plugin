@@ -25,17 +25,17 @@ public class MyForm extends JPanel {
         return rootPanel;
     }
     public MyForm(Project project) {
-        MyService.State State= MyService.getInstance(project);
+        MyService State= MyService.getInstance(project);
 
-        CurrentTasksJList.setModel(State.CurrentTasks);
-        CompletedTasksJList.setModel(State.CompletedTasks);
+        CurrentTasksJList.setModel(State.CurrentTasks());
+        CompletedTasksJList.setModel(State.CompletedTasks());
         AddButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(CompletedEditFlag==false)
-                    State.CurrentTasks.addElement(TextField.getText());
+                    State.addCurrentElement(TextField.getText());
                 else
-                    State.CompletedTasks.addElement(TextField.getText());
+                    State.addCompletedElement(TextField.getText());
                 TextField.setText("");
             }
         });
@@ -57,11 +57,11 @@ public class MyForm extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int[] indices = CurrentTasksJList.getSelectedIndices();
                 for (int i = indices.length - 1; i >= 0; i--) {
-                    State.CurrentTasks.removeElementAt(indices[i]);
+                    State.removeCurrentElement(indices[i]);
                 }
                 int[] indices2 = CompletedTasksJList.getSelectedIndices();
                 for (int i = indices2.length - 1; i >= 0; i--) {
-                    State.CompletedTasks.removeElementAt(indices2[i]);
+                    State.removeCompletedElement(indices2[i]);
                 }
             }
         });
@@ -70,10 +70,10 @@ public class MyForm extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int[] indices = CurrentTasksJList.getSelectedIndices();
                 for (int i = 0; i < indices.length; i++) {
-                    State.CompletedTasks.addElement(State.CurrentTasks.getElementAt(indices[i]));
+                    State.addCompletedElement(State.getCurrentElement(indices[i]));
                 }
                 for (int i = indices.length - 1; i >= 0; i--) {
-                    State.CurrentTasks.removeElementAt(indices[i]);
+                    State.removeCurrentElement(indices[i]);
                 }
             }
         });
@@ -82,10 +82,10 @@ public class MyForm extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int[] indices = CompletedTasksJList.getSelectedIndices();
                 for (int i = 0; i < indices.length; i++) {
-                    State.CurrentTasks.addElement(State.CompletedTasks.getElementAt(indices[i]));
+                    State.addCurrentElement(State.getCompletedElement(indices[i]));
                 }
                 for (int i = indices.length - 1; i >= 0; i--) {
-                    State.CompletedTasks.removeElementAt(indices[i]);
+                    State.removeCompletedElement(indices[i]);
                 }
             }
         });
@@ -95,12 +95,12 @@ public class MyForm extends JPanel {
                 int[] indices1 = CurrentTasksJList.getSelectedIndices();
                 int[] indices2 = CompletedTasksJList.getSelectedIndices();
                 if(indices1.length==1&&indices2.length==0){
-                    TextField.setText(State.CurrentTasks.getElementAt(indices1[0]).toString());
-                    State.CurrentTasks.removeElementAt(indices1[0]);
+                    TextField.setText(State.getCurrentElement(indices1[0]));
+                    State.removeCurrentElement(indices1[0]);
                 }
                 if(indices1.length==0&&indices2.length==1){
-                    TextField.setText(State.CompletedTasks.getElementAt(indices2[0]).toString());
-                    State.CompletedTasks.removeElementAt(indices2[0]);
+                    TextField.setText(State.getCompletedElement(indices2[0]));
+                    State.removeCompletedElement(indices2[0]);
                     CompletedEditFlag=true;
                 }
             }
